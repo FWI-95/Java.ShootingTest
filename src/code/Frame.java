@@ -22,6 +22,9 @@ public class Frame extends JFrame{
 	int MinTBEnemySpawn = 100;
 	double EnemySpawnChance = 90;
 	long TSLEnemySpawn = 0;
+	long TSLFrame = System.currentTimeMillis();
+	long FrameCount = 0;
+	int FPS = 0;
 	
 	public Frame() {
 		keys = new Keyboard();
@@ -87,6 +90,13 @@ public class Frame extends JFrame{
 			
 			TSLEnemySpawn = System.currentTimeMillis();
 		}
+		
+		if (System.currentTimeMillis() - TSLFrame > 60 || TSLFrame == 0) {
+			FPS = (int) FrameCount / 60;
+			TSLFrame = System.currentTimeMillis();
+		} else {
+			FrameCount += 1;
+		}
 	}
 	
 	public void draw() {
@@ -129,6 +139,9 @@ public class Frame extends JFrame{
 				for(int i = 0; i < player.getItems().size(); i++) {
 					g.drawString("Item " + player.getItems().get(i).MType + ": " + (System.currentTimeMillis() - player.getItems().get(i).MAliveSince - player.getItems().get(i).MTTL) / 1000, 15, (i * 20) + 30);
 				}
+				
+				g.drawString("" + FPS, 15, 25);
+					
 			} finally {
 				g.dispose();
 			}
