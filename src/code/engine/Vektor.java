@@ -1,4 +1,4 @@
-package code;
+package code.engine;
 
 public class Vektor {
 	double fromX;
@@ -7,8 +7,8 @@ public class Vektor {
 	double destinationX;
 	double destinationY;
 	
-	double percentX;
-	double percentY;
+	public double percentX;
+	public double percentY;
 	
 	double distanceX;
 	double distanceY;

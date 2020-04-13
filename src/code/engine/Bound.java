@@ -1,4 +1,4 @@
-package code;
+package code.engine;
 
 import java.awt.Rectangle;
 

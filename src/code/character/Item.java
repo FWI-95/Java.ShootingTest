@@ -1,4 +1,4 @@
-package code;
+package code.character;
 
 import java.awt.Rectangle;
 
@@ -9,11 +9,11 @@ public class Item extends Rectangle{
 	public final static int MTBulletLife = 4;
 	public final static int MTBulletPassthrough = 5;
 		
-	int MType;
-	double MValue;
+	public int MType;
+	public double MValue;
 	
-	long MAliveSince;
-	long MTTL;
+	public long MAliveSince;
+	public long MTTL;
 	
 	public Item(int pType, long pPosX, long pPosY) {
 		this.setBounds((int) pPosX, (int) pPosY, 25, 25);

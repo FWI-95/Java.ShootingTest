@@ -1,4 +1,4 @@
-package code;
+package code.engine;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -7,6 +7,12 @@ import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+
+import code.character.Bullet;
+import code.character.Item;
+import code.character.Player;
+import code.enemy.Enemy;
+import code.level.Difficulty;
 
 public class Frame extends JFrame{
 	Keyboard keys;
@@ -23,11 +29,11 @@ public class Frame extends JFrame{
 	double EnemySpawnChance = 90;
 	long TSLEnemySpawn = 0;
 	
-	public Frame() {
+	public Frame(Difficulty d) {
 		keys = new Keyboard();
 		mouse = new Mouse();
 		
-		player = new Player(keys, mouse, this);
+		player = new Player(keys, mouse, this, d);
 		
 		Bullets = new ArrayList<Bullet>();
 		Enemies = new ArrayList<Enemy>();
@@ -56,7 +62,7 @@ public class Frame extends JFrame{
 	}
 	
 	public boolean gameIsRunning() {
-		if(!player.Alive)return false;
+		if(!player.IsAlive())return false;
 		if(keys.GameEscaped)return false;
 		return true;
 	}
@@ -147,6 +153,10 @@ public class Frame extends JFrame{
 
 	public void RetrieveItem(int which) {
 		Items.remove(which);
+	}
+
+	public void ExitGame() {
+		System.exit(0);
 	}
 
 }

@@ -1,4 +1,4 @@
-package code;
+package code.engine;
 
 public class Main {
 
@@ -6,7 +6,9 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		Frame f = new Frame();
+		MainMenu mm = new MainMenu(400, 200);
+		
+		Frame f = new Frame(mm.Show());
 		f.makeStrat();
 		
 		long LastUpdate = System.currentTimeMillis();
@@ -23,7 +25,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		System.exit(0);
+		f.ExitGame();
 	}
 
 }

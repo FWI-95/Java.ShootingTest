@@ -1,25 +1,29 @@
-package code;
+package code.enemy;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import code.character.Bullet;
+import code.character.Player;
+// FantasyEnemyCreatures
+
 public class Enemy extends Rectangle{
 	
-	boolean Alive = false;
+	public boolean Alive = false;
 	
 	long MovSpeed = 4;
 	
 	long posX;
 	long posY;
 	
-	long lastDestinationX;
-	long lastDestinationY;
+	public long lastDestinationX;
+	public long lastDestinationY;
 	
-	double lastPercX;
-	double lastPercY;
+	public double lastPercX;
+	public double lastPercY;
 	
-	long lastAfterX;
-	long lastAfterY;
+	public long lastAfterX;
+	public long lastAfterY;
 	
 	long MaxSpawnTime = 250;
 	
@@ -49,7 +53,7 @@ public class Enemy extends Rectangle{
 			}
 		}
 		
-		if(p.intersects(this))p.Alive = false;
+		if(p.intersects(this))p.SetAlive(false);
 
 		
 		double distX = (p.getBounds().x - (p.getBounds().width / 2)) - (getBounds().x - (getBounds().width / 2));
