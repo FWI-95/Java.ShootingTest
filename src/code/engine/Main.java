@@ -6,26 +6,17 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		MainMenu mm = new MainMenu(400, 200);
-		
-		Frame f = new Frame(mm.Show());
+		Frame f = new Frame();
 		f.makeStrat();
 		
 		long LastUpdate = System.currentTimeMillis();
-		while(f.gameIsRunning()){
+		while(true){
 			if((System.currentTimeMillis() - LastUpdate) > UpdateSpeed){
 				f.calc();
 				f.draw();
 				LastUpdate = System.currentTimeMillis();
 			}
 		}
-		try {
-			Thread.sleep(750);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		f.ExitGame();
 	}
 
 }

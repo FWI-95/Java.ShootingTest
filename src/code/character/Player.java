@@ -24,6 +24,8 @@ public class Player extends Rectangle{
 	
 	public long EnemiesKilled = 0;
 	
+	final int Mode_Dead = 3;
+	
 	ArrayList<Item> Items;
 	
 	public Player(Keyboard k, Mouse m, Frame f, Difficulty d) {
@@ -142,6 +144,9 @@ public class Player extends Rectangle{
 
 	public void SetAlive(boolean b) {
 		Stats.setAlive(b);
+		if(!b) {
+			frame.changeState(Mode_Dead);
+		}
 	}
 	
 	public boolean IsAlive() {

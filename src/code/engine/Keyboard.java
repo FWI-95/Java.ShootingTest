@@ -5,17 +5,21 @@ import java.awt.event.KeyListener;
 
 public class Keyboard implements KeyListener{
 	boolean[] keys;
-	boolean GameEscaped = false;
+	Frame frame;
 	
-	public Keyboard() {
+	final int Mode_Pause = 2;
+	
+	public Keyboard(Frame f) {
+		frame = f;
 		keys = new boolean[1024];
-		
+		System.out.println("Keyboard initialized");
 	}
 
 	@Override
 	public void keyPressed(KeyEvent ke) {
-		if(ke.getKeyCode() == KeyEvent.VK_ESCAPE) GameEscaped = true;
+		if(ke.getKeyCode() == KeyEvent.VK_ESCAPE) frame.changeState(Mode_Pause);
 		keys[ke.getKeyCode()] = true;
+		System.out.println(ke.toString());
 	}
 
 	@Override
@@ -33,7 +37,4 @@ public class Keyboard implements KeyListener{
 		return(keys[code]);
 	}
 	
-	public boolean hasEscaped() {
-		return GameEscaped;
-	}
 }
