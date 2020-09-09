@@ -1,4 +1,4 @@
-package code;
+package code.entities;
 
 import java.awt.ItemSelectable;
 import java.awt.Rectangle;
@@ -6,13 +6,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import code.Frame;
+import code.Keyboard;
+import code.Mouse;
+
 public class Player extends Rectangle{
 	
 	Frame frame;
 	Keyboard keys;
 	Mouse mouse;
 	
-	boolean Alive = true;
+	public boolean Alive = true;
 	
 	long BaseMovSpeed = 4;
 	long BaseShtSpeed = 100;
@@ -28,7 +32,7 @@ public class Player extends Rectangle{
 	long posX;
 	long posY;
 	
-	long EnemiesKilled = 0;
+	public long EnemiesKilled = 0;
 	
 	ArrayList<Item> Items;
 	

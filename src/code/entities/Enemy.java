@@ -1,25 +1,25 @@
-package code;
+package code.entities;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class Enemy extends Rectangle{
 	
-	boolean Alive = false;
+	public boolean Alive = false;
 	
 	long MovSpeed = 4;
 	
 	long posX;
 	long posY;
 	
-	long lastDestinationX;
-	long lastDestinationY;
+	public long lastDestinationX;
+	public long lastDestinationY;
 	
-	double lastPercX;
-	double lastPercY;
+	public double lastPercX;
+	public double lastPercY;
 	
-	long lastAfterX;
-	long lastAfterY;
+	public long lastAfterX;
+	public long lastAfterY;
 	
 	long MaxSpawnTime = 250;
 	
