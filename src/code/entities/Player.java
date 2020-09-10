@@ -1,22 +1,30 @@
 package code.entities;
 
-import java.awt.ItemSelectable;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
 import code.Frame;
 import code.Keyboard;
 import code.Mouse;
+import code.animation.Direction;
+import code.animation.PlayerAnimation;
+import code.animation.PlayerState;
 
-public class Player extends Rectangle{
+public class Player extends Rectangle implements ImageObserver{
 	
 	Frame frame;
 	Keyboard keys;
 	Mouse mouse;
+	SpriteSheet spritesheet;
+	PlayerAnimation anim;
 	
 	public boolean Alive = true;
+	public PlayerState CurrentState;
+	public Direction CurrentDirection;
 	
 	long BaseMovSpeed = 4;
 	long BaseShtSpeed = 100;
@@ -50,6 +58,8 @@ public class Player extends Rectangle{
 		Items = new ArrayList<Item>();
 		
 		TransferPos();
+		CurrentDirection = Direction.DOWN;
+		anim = new PlayerAnimation((int) (Math.random() * 5));
 		
 //		System.out.println("Center X: " + getCenterX() + " y: " + getCenterY());
 	}
@@ -96,12 +106,29 @@ public class Player extends Rectangle{
 				Bullets.add(new Bullet(this, mouse.getPointer(), BulletTTL, BulletMovSpeed, BulletPassthrough));
 				TSLShoot = System.currentTimeMillis();
 			}
+//			CurrentState = State.ATTACKING;
+//		} else {
+//			CurrentState = State.IDLE;
 		}
 		
-		if(keys.isKeyDown(KeyEvent.VK_W))Move(0,-1, MovSpeed);
-		if(keys.isKeyDown(KeyEvent.VK_D))Move(1,0, MovSpeed);
-		if(keys.isKeyDown(KeyEvent.VK_S))Move(0,1, MovSpeed);
-		if(keys.isKeyDown(KeyEvent.VK_A))Move(-1,0, MovSpeed);
+		if(keys.isKeyDown(KeyEvent.VK_SHIFT)) {
+			MovSpeed *= 1.25;
+		}
+		
+		if(keys.isKeyDown(KeyEvent.VK_W))Move(Direction.UP, MovSpeed);
+		if(keys.isKeyDown(KeyEvent.VK_D))Move(Direction.RIGHT, MovSpeed);
+		if(keys.isKeyDown(KeyEvent.VK_S))Move(Direction.DOWN, MovSpeed);
+		if(keys.isKeyDown(KeyEvent.VK_A))Move(Direction.LEFT, MovSpeed);
+
+		if(keys.isKeyDown(KeyEvent.VK_W) || keys.isKeyDown(KeyEvent.VK_D) || keys.isKeyDown(KeyEvent.VK_S) || keys.isKeyDown(KeyEvent.VK_A)) {
+			if(keys.isKeyDown(KeyEvent.VK_SHIFT)) {
+				CurrentState = PlayerState.RUNNING;
+			}else {
+				CurrentState = PlayerState.WALKING;
+			}
+		} else {
+			CurrentState = PlayerState.IDLE;
+		}
 		
 		for(int i = 0; i < SpawnedItems.size(); i++) {
 			if(this.intersects(SpawnedItems.get(i))) {
@@ -112,7 +139,34 @@ public class Player extends Rectangle{
 		}
 	}
 	
-	public void Move(int MoveX , int MoveY, long MovSpeed) {
+	public void Move(Direction dir, long MovSpeed) {
+		CurrentDirection = dir;
+		int MoveX;
+		int MoveY;
+		
+		switch(dir) {
+		case UP:
+			MoveX = 0;
+			MoveY = -1;
+			break;
+		case RIGHT:
+			MoveX = 1;
+			MoveY = 0;
+			break;
+		case DOWN:
+			MoveX = 0;
+			MoveY = 1;
+			break;
+		case LEFT:
+			MoveX = -1;
+			MoveY = 0;
+			break;
+		default:
+			MoveX = 0;
+			MoveY = 0;
+			break;
+		}
+		
 		if((x + (MoveX * MovSpeed)) < 0) MoveX = 0;
 		if((x + (MoveX * MovSpeed) + width) > frame.getBounds().width) MoveX = 0;
 		
@@ -136,5 +190,15 @@ public class Player extends Rectangle{
 	
 	public ArrayList<Item> getItems(){
 		return Items;
+	}
+	
+	public Image getImage() {
+		return anim.GetImage(CurrentState, CurrentDirection);
+	}
+
+	@Override
+	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
