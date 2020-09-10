@@ -1,7 +1,9 @@
-package code;
+package code.entities;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+
+import code.math.Vektor;
 
 public class Bullet extends Rectangle{
 	double posX;
@@ -12,7 +14,7 @@ public class Bullet extends Rectangle{
 	
 	boolean Passthrough;
 	
-	boolean Alive = true;
+	public boolean Alive = true;
 	
 	long AliveSince;
 	

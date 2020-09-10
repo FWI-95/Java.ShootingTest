@@ -1,4 +1,4 @@
-package code;
+package code.math;
 
 import java.awt.Rectangle;
 
