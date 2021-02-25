@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="654d6630-e3ea-4f42-8028-04162fe5d754" name="Default Changelist" comment="" />
+    <list default="true" id="654d6630-e3ea-4f42-8028-04162fe5d754" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/code/entities/Bullet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/code/entities/Enemy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/code/entities/Item.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/code/entities/Player.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,6 +58,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

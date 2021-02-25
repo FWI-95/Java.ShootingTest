@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/code/engine/Bound.java
-package code.engine;
-=======
 package code.math;
->>>>>>> master:src/code/math/Bound.java
 
 import java.awt.Rectangle;
 

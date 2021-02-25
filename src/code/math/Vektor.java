@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/code/engine/Vektor.java
-package code.engine;
-=======
 package code.math;
->>>>>>> master:src/code/math/Vektor.java
 
 public class Vektor {
 	double fromX;

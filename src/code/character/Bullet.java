@@ -1,17 +1,9 @@
-<<<<<<< HEAD:src/code/character/Bullet.java
 package code.character;
-=======
-package code.entities;
->>>>>>> master:src/code/entities/Bullet.java
 
 import java.awt.Point;
 import java.awt.Rectangle;
 
-<<<<<<< HEAD:src/code/character/Bullet.java
 import code.engine.Vektor;
-=======
-import code.math.Vektor;
->>>>>>> master:src/code/entities/Bullet.java
 
 public class Bullet extends Rectangle{
 	double posX;

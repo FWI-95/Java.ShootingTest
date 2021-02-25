@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/code/enemy/Enemy.java
 package code.enemy;
-=======
-package code.entities;
->>>>>>> master:src/code/entities/Enemy.java
 
 import java.awt.Rectangle;
 import java.util.ArrayList;

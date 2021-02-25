@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import code.engine.Frame;
 import code.engine.Keyboard;
 import code.engine.Mouse;
+import code.level.Difficulties;
 import code.level.Difficulty;
 // CYBERPUNK CHARACTERS
 
@@ -21,6 +22,8 @@ public class Player extends Rectangle{
 	
 	long posX;
 	long posY;
+
+	Difficulty CurrentDifficulty;
 	
 	public long EnemiesKilled = 0;
 	
