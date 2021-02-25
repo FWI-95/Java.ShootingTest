@@ -44,7 +44,15 @@ public class SpriteSheet
     	if (yTile > 0) {
     		yPos += (yTile * ySeparation);
     	}
-//    	System.out.println("xTile " + xTile + " yTile " + yTile + " x " + xPos + " y " + yPos + " w " + TileWidth + " h " + TileHeight);
+    	System.out.println("xTile " + xTile + " yTile " + yTile + " x " + xPos + " y " + yPos + " w " + TileWidth + " h " + TileHeight);
+    	
+    	if (xPos < 0)xPos = 0;
+    	if (yPos < 0)yPos = 0;
+    	if (xPos + TileWidth > spritesheet.getWidth())xPos = spritesheet.getWidth() - TileWidth;
+    	if (yPos + TileHeight > spritesheet.getHeight())yPos = spritesheet.getHeight() - TileHeight;
+    	
+    	System.out.println("width " + spritesheet.getWidth() + " height " + spritesheet.getHeight() + " x " + xPos + " y " + yPos + " w " + TileWidth + " h " + TileHeight);
+    	
     	BufferedImage sprite = spritesheet.getSubimage(xPos, yPos, TileWidth, TileHeight);
     	return sprite;
     }

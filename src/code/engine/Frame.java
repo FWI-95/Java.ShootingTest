@@ -168,8 +168,9 @@ public class Frame extends JFrame{
 		}
 		
 		// Player
-		g.setColor(Color.BLUE);
-		g.fillRect(player.getBounds().x, player.getBounds().y, player.getBounds().width, player.getBounds().height);
+		g.drawImage(player.getImage(), player.getBounds().x, player.getBounds().y, player.getBounds().width, player.getBounds().height, player);
+//		g.setColor(Color.BLUE);
+//		g.fillRect(player.getBounds().x, player.getBounds().y, player.getBounds().width, player.getBounds().height);
 		
 		// Stats
 		g.setColor(Color.BLACK);
