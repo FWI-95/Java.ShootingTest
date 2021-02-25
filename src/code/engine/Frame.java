@@ -1,4 +1,4 @@
-package code;
+package code.engine;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import code.entities.Background;
-import code.entities.Bullet;
-import code.entities.Enemy;
-import code.entities.Item;
-import code.entities.Player;
+import code.level.Difficulties;
+import code.level.Difficulty;
+import code.character.Bullet;
+import code.enemy.Enemy;
+import code.character.Item;
+import code.character.Player;
 
 public class Frame extends JFrame{
 	Keyboard keys;
@@ -31,10 +33,10 @@ public class Frame extends JFrame{
 	long TSLEnemySpawn = 0;
 	
 	public Frame() {
-		keys = new Keyboard();
+		keys = new Keyboard(this);
 		mouse = new Mouse();
-		
-		player = new Player(keys, mouse, this);
+
+		player = new Player(keys, mouse, this, new Difficulty(Difficulties.MEDIUM));
 		
 		Bullets = new ArrayList<Bullet>();
 		Enemies = new ArrayList<Enemy>();
