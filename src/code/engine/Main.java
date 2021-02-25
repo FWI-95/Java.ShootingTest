@@ -1,4 +1,4 @@
-package code;
+package code.engine;
 
 import java.awt.event.KeyEvent;
 
@@ -12,20 +12,13 @@ public class Main {
 		f.makeStrat();
 		
 		long LastUpdate = System.currentTimeMillis();
-		while(f.gameIsRunning()){
+		while(true){
 			if((System.currentTimeMillis() - LastUpdate) > UpdateSpeed){
 				f.calc();
 				f.draw();
 				LastUpdate = System.currentTimeMillis();
 			}
 		}
-		try {
-			Thread.sleep(750);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		System.exit(0);
 	}
 
 }
