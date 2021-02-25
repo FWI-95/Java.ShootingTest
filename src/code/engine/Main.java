@@ -1,5 +1,7 @@
 package code.engine;
 
+import java.awt.event.KeyEvent;
+
 public class Main {
 
 	static long UpdateSpeed = 25;
