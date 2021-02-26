@@ -1,33 +1,41 @@
 package code.character;
 
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
+import code.animation.Direction;
+import code.animation.PlayerAnimation;
+import code.animation.PlayerState;
 import code.engine.Frame;
 import code.engine.Keyboard;
+import code.engine.Modes;
 import code.engine.Mouse;
-import code.level.Difficulties;
+import code.entities.Bullet;
+import code.entities.Item;
+import code.entities.SpriteSheet;
 import code.level.Difficulty;
-// CYBERPUNK CHARACTERS
 
-public class Player extends Rectangle{
+public class Player extends Rectangle implements ImageObserver{
 	
 	Frame frame;
 	Keyboard keys;
 	Mouse mouse;
-
+	SpriteSheet spritesheet;
+	PlayerAnimation anim;
 	Player_Stats Stats;
+	Difficulty CurrentDifficulty;
+	
+	public PlayerState CurrentState;
+	public Direction CurrentDirection;
 	
 	long posX;
 	long posY;
-
-	Difficulty CurrentDifficulty;
 	
 	public long EnemiesKilled = 0;
-	
-	final int Mode_Dead = 3;
 	
 	ArrayList<Item> Items;
 	
@@ -35,7 +43,8 @@ public class Player extends Rectangle{
 		keys = k;
 		mouse = m;
 		frame = f;
-				
+		CurrentDifficulty = d;
+		
 		posX = 150;
 		posY = 150;
 		
@@ -43,10 +52,12 @@ public class Player extends Rectangle{
 		height = 50;
 		
 		Stats = new Player_Stats(d);
-		
+
 		Items = new ArrayList<Item>();
 		
 		TransferPos();
+		CurrentDirection = Direction.DOWN;
+		anim = new PlayerAnimation((int) (Math.random() * 5));
 		
 //		System.out.println("Center X: " + getCenterX() + " y: " + getCenterY());
 	}
@@ -101,12 +112,22 @@ public class Player extends Rectangle{
 				Bullets.add(new Bullet(this, mouse.getPointer(), Stats.CurrentBulletTTL, Stats.CurrentBulletMovSpeed, Stats.BulletPassthrough));
 				Stats.TSLShoot = System.currentTimeMillis();
 			}
+//			CurrentState = State.ATTACKING;
+//		} else {
+//			CurrentState = State.IDLE;
 		}
-		
-		if(keys.isKeyDown(KeyEvent.VK_W))Move(0,-1, Stats.CurrentMovSpeed);
-		if(keys.isKeyDown(KeyEvent.VK_D))Move(1,0, Stats.CurrentMovSpeed);
-		if(keys.isKeyDown(KeyEvent.VK_S))Move(0,1, Stats.CurrentMovSpeed);
-		if(keys.isKeyDown(KeyEvent.VK_A))Move(-1,0, Stats.CurrentMovSpeed);
+		CurrentState = PlayerState.IDLE;
+		if(keys.isKeyDown(KeyEvent.VK_SHIFT)) {
+			if(keys.isKeyDown(KeyEvent.VK_W))Run(Direction.UP);
+			if(keys.isKeyDown(KeyEvent.VK_D))Run(Direction.RIGHT);
+			if(keys.isKeyDown(KeyEvent.VK_S))Run(Direction.DOWN);
+			if(keys.isKeyDown(KeyEvent.VK_A))Run(Direction.LEFT);	
+		} else {
+			if(keys.isKeyDown(KeyEvent.VK_W))Walk(Direction.UP);
+			if(keys.isKeyDown(KeyEvent.VK_D))Walk(Direction.RIGHT);
+			if(keys.isKeyDown(KeyEvent.VK_S))Walk(Direction.DOWN);
+			if(keys.isKeyDown(KeyEvent.VK_A))Walk(Direction.LEFT);
+		}
 		
 		for(int i = 0; i < SpawnedItems.size(); i++) {
 			if(this.intersects(SpawnedItems.get(i))) {
@@ -115,11 +136,46 @@ public class Player extends Rectangle{
 				frame.RetrieveItem(i);				
 			}
 		}
-		
-		Stats.Update();
 	}
-	
-	public void Move(int MoveX , int MoveY, long MovSpeed) {
+	//TODO MovSpeed + Multiplier + Run
+	public void Walk(Direction dir){
+		CurrentState = PlayerState.WALKING;
+		Move(dir, CurrentDifficulty.BaseMovSpeed);
+	}
+
+	public void Run(Direction dir){
+		CurrentState = PlayerState.RUNNING;
+		Move(dir, CurrentDifficulty.BaseMovSpeed * Stats.MovSpeedMP);
+	}
+
+	public void Move(Direction dir, long MovSpeed) {
+		CurrentDirection = dir;
+		int MoveX;
+		int MoveY;
+		
+		switch(dir) {
+		case UP:
+			MoveX = 0;
+			MoveY = -1;
+			break;
+		case RIGHT:
+			MoveX = 1;
+			MoveY = 0;
+			break;
+		case DOWN:
+			MoveX = 0;
+			MoveY = 1;
+			break;
+		case LEFT:
+			MoveX = -1;
+			MoveY = 0;
+			break;
+		default:
+			MoveX = 0;
+			MoveY = 0;
+			break;
+		}
+		
 		if((x + (MoveX * MovSpeed)) < 0) MoveX = 0;
 		if((x + (MoveX * MovSpeed) + width) > frame.getBounds().width) MoveX = 0;
 		
@@ -144,15 +200,28 @@ public class Player extends Rectangle{
 	public ArrayList<Item> getItems(){
 		return Items;
 	}
-
-	public void SetAlive(boolean b) {
-		Stats.setAlive(b);
-		if(!b) {
-			frame.changeState(Mode_Dead);
-		}
-	}
 	
-	public boolean IsAlive() {
-		return Stats.IsAlive();
+	public Image getImage() {
+		return anim.GetImage(CurrentState, CurrentDirection);
+	}
+
+	@Override
+	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void kill(){
+		Stats.setAlive(false);
+		frame.changeState(Modes.DEAD);
+	}
+
+	public boolean IsAlive(){
+		return Stats.Alive;
 	}
 }
+
+
+
+
+

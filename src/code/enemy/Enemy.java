@@ -3,7 +3,7 @@ package code.enemy;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import code.character.Bullet;
+import code.entities.Bullet;
 import code.character.Player;
 // FantasyEnemyCreatures
 
@@ -53,7 +53,7 @@ public class Enemy extends Rectangle{
 			}
 		}
 		
-		if(p.intersects(this))p.SetAlive(false);
+		if(p.intersects(this))p.kill();
 
 		
 		double distX = (p.getBounds().x - (p.getBounds().width / 2)) - (getBounds().x - (getBounds().width / 2));

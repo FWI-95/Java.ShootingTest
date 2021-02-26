@@ -1,8 +1,9 @@
-package code.character;
+package code.entities;
 
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import code.character.Player;
 import code.engine.Vektor;
 
 public class Bullet extends Rectangle{

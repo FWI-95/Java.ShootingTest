@@ -12,6 +12,7 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import code.level.Difficulties;
 import code.level.Difficulty;
 import code.level.Difficulty_Easy;
 import code.level.Difficulty_Hard;
@@ -125,19 +126,19 @@ public class PauseMenu implements ActionListener, KeyListener {
 			frame.ExitGame();
 		}else {
 			if(ae.getSource() == DifficultyEasy) {
-				frame.setDifficulty(new Difficulty_Easy());
-				frame.changeState(Mode_Playing);
+				frame.setDifficulty(Difficulties.EASY);
+				frame.changeState(Modes.ALIVE);
 			}
 			if(ae.getSource() == DifficultyMedium) {
-				frame.setDifficulty(new Difficulty_Medium());
-				frame.changeState(Mode_Playing);
+				frame.setDifficulty(Difficulties.MEDIUM);
+				frame.changeState(Modes.ALIVE);
 			}
 			if(ae.getSource() == DifficultyHard) {
-				frame.setDifficulty(new Difficulty_Hard());
-				frame.changeState(Mode_Playing);
+				frame.setDifficulty(Difficulties.HARD);
+				frame.changeState(Modes.ALIVE);
 			}
 			
-			if(ae.getSource() == Continue) frame.changeState(Mode_Playing);
+			if(ae.getSource() == Continue) frame.changeState(Modes.ALIVE);
 			if(ae.getSource() == Exit) frame.ExitGame();
 		}
 			
@@ -161,6 +162,6 @@ public class PauseMenu implements ActionListener, KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) frame.changeState(Mode_Playing);
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) frame.changeState(Modes.ALIVE);
 	}
 }

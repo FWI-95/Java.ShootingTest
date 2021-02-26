@@ -8,13 +8,14 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import code.settings;
+import code.character.Player;
+import code.enemy.Enemy;
 import code.entities.Background;
+import code.entities.Bullet;
+import code.entities.Item;
 import code.level.Difficulties;
 import code.level.Difficulty;
-import code.character.Bullet;
-import code.enemy.Enemy;
-import code.character.Item;
-import code.character.Player;
 
 public class Frame extends JFrame{
 	Keyboard keys;
@@ -31,6 +32,9 @@ public class Frame extends JFrame{
 	int MinTBEnemySpawn = 100;
 	double EnemySpawnChance = 90;
 	long TSLEnemySpawn = 0;
+
+	Difficulties CurrentDifficulty;
+	Modes CurrentMode;
 	
 	public Frame() {
 		keys = new Keyboard(this);
@@ -66,9 +70,7 @@ public class Frame extends JFrame{
 	}
 	
 	public boolean gameIsRunning() {
-		if(!player.Alive)return false;
-		if(keys.GameEscaped)return false;
-		return true;
+		return(!player.IsAlive() && CurrentMode != Modes.PAUSED);
 	}
 	
 	public boolean IsKeyDown(int KeyCode) {
@@ -223,6 +225,17 @@ public class Frame extends JFrame{
 			g.drawString("Item " + player.getItems().get(i).MType + ": " + (System.currentTimeMillis() - player.getItems().get(i).MAliveSince - player.getItems().get(i).MTTL) / 1000, 15, (i * 20) + 30);
 		}
 		return g;
+	}
+
+	public void ExitGame() {
+	}
+
+	public void changeState(Modes curmode) {
+		CurrentMode = curmode;
+	}
+
+	public void setDifficulty(Difficulties curdif) {
+		CurrentDifficulty = curdif;
 	}
 
 }

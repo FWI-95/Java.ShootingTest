@@ -7,8 +7,6 @@ public class Keyboard implements KeyListener{
 	boolean[] keys;
 	Frame frame;
 	
-	final int Mode_Pause = 2;
-	
 	public Keyboard(Frame f) {
 		frame = f;
 		keys = new boolean[1024];
@@ -17,7 +15,7 @@ public class Keyboard implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent ke) {
-		if(ke.getKeyCode() == KeyEvent.VK_ESCAPE) frame.changeState(Mode_Pause);
+		if(ke.getKeyCode() == KeyEvent.VK_ESCAPE) frame.changeState(Modes.PAUSED);
 		keys[ke.getKeyCode()] = true;
 		System.out.println(ke.toString());
 	}
