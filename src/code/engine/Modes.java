@@ -1,5 +1,5 @@
 package code.engine;
 
 public enum Modes {
-    ALIVE, PAUSED, DEAD
+    START, ALIVE, PAUSED, DEAD
 }

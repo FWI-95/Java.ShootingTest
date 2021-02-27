@@ -3,6 +3,7 @@ package code.engine;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
@@ -36,16 +37,18 @@ public class Frame extends JFrame{
 	Difficulties CurrentDifficulty;
 	Modes CurrentMode;
 	
-	public Frame() {
+	public Frame(Difficulty ChosenDiff) {
 		keys = new Keyboard(this);
 		mouse = new Mouse();
 
-		player = new Player(keys, mouse, this, new Difficulty(Difficulties.MEDIUM));
+		player = new Player(keys, mouse, this, ChosenDiff);
 		
 		Bullets = new ArrayList<Bullet>();
 		Enemies = new ArrayList<Enemy>();
 		Items = new ArrayList<Item>();
 		background = new Background((int) (Math.random() * 17));
+
+		CurrentMode = Modes.START;
 		
 		setTitle("Shooting Test");
 //		setSize(600, 400);
@@ -238,4 +241,26 @@ public class Frame extends JFrame{
 		CurrentDifficulty = curdif;
 	}
 
+	public Modes getCurrentState(){
+		return CurrentMode;
+	}
+
+	public void drawPause() {
+
+	}
+
+	public void drawDead() {
+		Graphics g = strat.getDrawGraphics();
+
+		do {
+			g.setColor(Color.red);
+			g.drawString("Dead. Press Escape to close", 10, 10);
+
+			while(true){
+				if (keys.isKeyDown(KeyEvent.VK_ESCAPE)){
+					ExitGame();
+				}
+			}
+		} while (strat.contentsLost());
+	}
 }

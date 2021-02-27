@@ -9,7 +9,7 @@ public class Keyboard implements KeyListener{
 	
 	public Keyboard(Frame f) {
 		frame = f;
-		keys = new boolean[1024];
+		keys = new boolean[2048];
 		System.out.println("Keyboard initialized");
 	}
 

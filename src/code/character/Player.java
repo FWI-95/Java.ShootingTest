@@ -219,6 +219,7 @@ public class Player extends Rectangle implements ImageObserver{
 	public boolean IsAlive(){
 		return Stats.Alive;
 	}
+
 }
 
 
